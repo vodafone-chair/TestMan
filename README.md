@@ -13,7 +13,7 @@ Three different messages can be exchanged between clients
 * **TCP Stream** - secure, high speed point-to-point communication
 
 ## Repository Overview
-* **Documentation** can be found under [`.\TestMan\Documentation`](https://github.com/PeterNeuhaus/TestMan/blob/master/Documentation/TestMan_Documentation_v1.0.pdf)
+* **Documentation** can be found under [`.\TestMan\Documentation`](https://github.com/vodafone-chair/TestMan/blob/master/Documentation/TestMan_Documentation_v1.0.pdf)
 * The *TestMan DLL* source code is provided  in `.\TestMan\UDP-Communications`
 * The *TestMan TestSuite* (a GUI tool) is provided  in `.\TestMan\UDP-TestSuite`
 * `.\TestMan\Examples` contains code examples for integration into different programming languages
