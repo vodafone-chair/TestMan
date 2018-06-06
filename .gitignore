@@ -1,0 +1,64 @@
+## Core latex/pdflatex auxiliary files:
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+
+## Bibliography auxiliary files (bibtex/biblatex/biber):
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.brf
+*.run.xml
+
+## Build tool auxiliary files:
+*.fdb_latexmk
+*.synctex
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+## Python
+*.pyc
+*.pyo
+
+## Matlab
+*.asv
+*.mat
+*~
+
+## LabVIEW
+*.lvcompile
+*.lvsuo
+*.lvcodedb
+*.lvbitx
+NumericProfileData/
+*.lvinfo
+*.lvprojectcache
+xsim.dir
+
+## Visual Studio
+*.manifest
+*.pdb
+*.vshost.*
+*.exe.config
+*.Cache
+*.resources
+*.tlog
+*TemporaryGeneratedFile*
+*.FileListAbsolute.txt
+Properties.Resources.Designer.cs.dll
+*.lvlps
+*.aliases
+
+## CMake
+CMakeLists.txt.user

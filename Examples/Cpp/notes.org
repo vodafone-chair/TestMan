@@ -1,0 +1,58 @@
+* Command message flow
+
+| Sender                                            |   | Receiver                                                   |
+|---------------------------------------------------+---+------------------------------------------------------------|
+| SendCommand(timestamp)                            |   |                                                            |
+|                                                   |   | send_answer("received", timestamp, timeout) (no automatic) |
+| Receives packet with Command "received", timeout) |   |                                                            |
+| Packet is translated ton "isReceiveAck"           |   |                                                            |
+| set CommandisReceived at packet                   |   |                                                            |
+| updates the execution timeout                     |   |                                                            |
+| SendData("command: ack", timestamp)               |   |                                                            |
+| waits for execution ack                           |   |                                                            |
+|                                                   |   | receives packet with isAck=true                            |
+|                                                   |   | stores ack into the Tx packet object                       |
+|                                                   |   |                                                            |
+|                                                   |   | executes command                                           |
+|                                                   |   | send_answer("executed")                                    |
+| receives Packet with Command: "executed"          |   |                                                            |
+| set CommandIsExecuted Flag on the packet          |   |                                                            |
+| sendData("command: ack", timestamp)               |   |                                                            |
+|                                                   |   | receives packet with isAck=true                            |
+|                                                   |   |                                                            |
+|                                                   |   |                                                            |
+
+- send answer sends 3 times and waits for ack, otherwise it times out and raises an error
+- send commands waits for ack for reception and for execution; repeats command sending if no received ack
+
+* Streaming Interface
+** from udp_server side, at start_server
+UDP_Server.StartStream(destType, destId)
+- server sends "getlocalip"
+- server waits until feedback for the receiver's IP address
+  - determines, from which IP address the server should start the connection
+  - otherwise, the address is not used
+- calls TCPStream.start_server(server_ip, nextFreePort)
+- sendCommand(startTCPClient, server_ip, server_port)
+- if fail, switch roles, ask the destination to start the server
+** functions
+*** start_server
+- essentially starts a TCPListener on a given port and address
+*** wait_for_client
+- waits for listener.Pending() to become true within a given timeout
+*** accept_socket
+- starts the receiver thread (control_thread)
+*** connect_to_server
+- creates TCPClient object and connects it to given IP and port
+- calls accept_socket with the client's socket
+** TCPStream
+- send/read commands with PACKETSIZE bytes, contains zero-terminated strings
+- start_server: Creates socket and listens for connections.
+- wait_for_client: accepts client connection and starts socket with control_thread running in extra thread
+- connect_to_server: simply establishes connection to a server and stores the socket with start_socket
+* getlocalip command
+- is sent as Command packet
+- request format: {command: getlocalip, type: desttype, id: destid}
+- response format: {command: response, answer: getlocalip, type: sourcetype, id: sourceid, 0: 123.456.789.111:freeport}
+- freeport from response is not used at all (can be dummy data)
+- response address is used to match the server address

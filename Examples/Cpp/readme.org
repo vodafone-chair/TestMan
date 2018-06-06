@@ -1,0 +1,34 @@
+* Testman implementation with C++
+** Requirements
+- Boost 1.66 (http://www.boost.org). Might run with older versions. Mainly boost.asio is used.
+- C++14 compatible compiler. Has been tested with g++-7 and Visual Studio 2017
+- CMake3 (https://cmake.org)
+
+** Compiling
+- follow the typical CMake build process (easiest: Open CMake-gui and
+  choose this directory as the source dir. Choose something different
+  for the build dir. You might set BOOST_ROOT to the root directory
+  where boost is installed.)
+
+** Integration into your own project
+- testmancpp is compiled as a static library which can be linked
+  against the project.
+- Alternatively, just add the source files into your main project.
+
+** Examples
+- example/packetSniffer : shows any packet that is sent over the
+  multicast interface. Use this program to debug the logic
+- example/exampleTestman : shows how to use the Server and TCPStream
+  classes to communicate with others.
+
+*** How to use exampleTestman
+1) Run the UDPTestSuite and start the server with (type, id) =
+   (255, 1)
+2) Run exampleTestman. The program will first try to use (type,
+   id)=(255,1), but the running TestSuite will deny this id. Then, the
+   program will choose (255,2) as the identification.
+3) The program will issue an error if it did not get (255,2) as the
+   ID, as the communication is hardcoded to (255,1) for simplicity.
+4) Once the program is running, you can choose between 4 commands:
+   command, data, openstream, streamdata. See the comments in the
+   source code of the example to learn more about the functions.

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<settings>
+	<udp>
+		<IP>224.5.6.7</IP>
+		<Port>50000</Port>
+		<TTL>3</TTL>
+		<ID>5</ID>
+		<Type>4</Type>
+	</udp>
+</settings>
